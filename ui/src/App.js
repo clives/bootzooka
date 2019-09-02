@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,16 +22,11 @@ import PasswordReset from './PasswordReset/PasswordReset';
 import PasswordService from './PasswordService/PasswordService';
 import UserService from './UserService/UserService';
 import VersionService from './VersionService/VersionService';
+import {updateIsLoadingAuthInfo, resetUserLoginInfo, setApiKey,getCurrentUser} from './Actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      apiKey: null,
-      isLoggedIn: false,
-      user: null,
-      isLoadingAuthInfo: true
-    };
 
     this.notifySuccess = this.notifySuccess.bind(this);
     this.notifyError = this.notifyError.bind(this);
@@ -40,20 +36,22 @@ class App extends Component {
     const apiKey = window.localStorage.getItem('apiKey');
 
     if (apiKey) {
-      try {
+     // try {
+
+      this.props.getCurrentUser( apiKey);
+      /*
         const { data: user } = await this.props.userService.getCurrentUser(apiKey);
-        this.setState({ apiKey, isLoggedIn: true, user, isLoadingAuthInfo: false });
+        this.props.updateIsLoadingAuthInfo(false);
+        this.props.setApiKey( apiKey,user );
       } catch (err) {
         window.console.error(err);
         window.localStorage.removeItem('apiKey');
-        this.setState({ isLoadingAuthInfo: false });
-      }
+        this.props.updateIsLoadingAuthInfo(false);
+      }*/
     }
-    this.setState({ isLoadingAuthInfo: false });
+    this.props.updateIsLoadingAuthInfo(false);
   }
-
   updateUserInfo({ email, login }) {
-    this.setState(state => ({ ...state, user: { ...state.user, email, login } }));
   }
 
   async onLoggedIn(apiKey) {
@@ -68,7 +66,7 @@ class App extends Component {
 
   logout() {
     window.localStorage.removeItem('apiKey');
-    this.setState({ apiKey: null, isLoggedIn: false, user: null });
+    this.props.resetUserLoginInfo();
   }
 
   notifySuccess(msg) {
@@ -80,8 +78,8 @@ class App extends Component {
   }
 
   render() {
-    const { passwordService, userService, versionService } = this.props;
-    const { apiKey, isLoadingAuthInfo, isLoggedIn, user } = this.state;
+    const { passwordService, userService, versionService, apiKey, isLoadingAuthInfo, isLoggedIn, user } = this.props;
+    //const { apiKey, isLoadingAuthInfo, isLoggedIn, user } = this.state;
     return (
       isLoadingAuthInfo ? <Spinner />
       : <div className="App">
@@ -131,4 +129,18 @@ App.propTypes = {
   versionService: PropTypes.instanceOf(VersionService).isRequired,
 };
 
-export default App;
+export const mapStateToProps = (state) => ({
+    apiKey: state.apiKey,
+    isLoadingAuthInfo: state.isLoadingAuthInfo,
+    isLoggedIn: state.isLoggedIn,
+    user: state.user
+})
+
+const mapDispatchToProps = {
+  updateIsLoadingAuthInfo: updateIsLoadingAuthInfo,
+  resetUserLoginInfo: resetUserLoginInfo,
+  setApiKey: setApiKey,
+  getCurrentUser: getCurrentUser
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

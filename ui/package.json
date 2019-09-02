@@ -10,7 +10,11 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.0.1",
-    "react-toastify": "^4.1.0"
+    "react-toastify": "^4.1.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.0.2",
+    "react-redux": "^5.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,7 +25,9 @@
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1"
+    "enzyme-adapter-react-16": "^1.1.1",
+    "react-hot-loader": "^4.2.0",
+    "redux-devtools-extension": "^2.13.8"
   },
   "proxy": "http://localhost:8080",
   "browserslist": {
