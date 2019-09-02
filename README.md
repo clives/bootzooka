@@ -39,6 +39,9 @@ Then, you can start the frontend:
 ./frontend-start.sh
 ```
 
+### In progress: 
+adding REDUX-SAGA 
+
 
 
 
