@@ -17,3 +17,7 @@ export const getCurrentUser = (apikey) => ({
     payload: { 'apikey': apikey}
 });
 
+export const getVersion = () => ({
+    type: 'GET_VERSION'
+});
+

@@ -7,6 +7,8 @@ export default function counter(state = {apiKey: null, isLoggedIn: false, user: 
           return { ...state, apiKey: null, isLoggedIn: false, user: null }
         case 'UPDATE_ISLOADINGAUTHINFO':
           return { ...state, isLoadingAuthInfo: action.payload }
+        case 'SET_VERSION':
+          return { ...state, buildDate: action.payload.buildDate, buildSha: action.payload.buildSha }
         case 'SET_APIKEY':
           return { ...state, apiKey: action.payload.apiKey, user: action.payload.user, isLoggedIn: true, isLoadingAuthInfo: false}
     default:

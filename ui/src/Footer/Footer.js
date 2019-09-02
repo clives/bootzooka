@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {getVersion} from '../Actions';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 class Footer extends Component {
   constructor(props) {
@@ -11,9 +14,7 @@ class Footer extends Component {
 
   async componentDidMount() {
     try {
-      const { data } = await this.props.versionService.getVersion();
-      const { buildDate, buildSha } = data;
-      this.setState({ version: `${buildDate}, ${buildSha}` });
+      this.props.getVersion();
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +27,7 @@ class Footer extends Component {
           sources available on <span><a href="https://github.com/softwaremill/bootzooka/">GitHub</a></span>
         </p>
         <p>
-          { this.state.version }
+          { this.props.buildDate} , {this.props.buildSha}
         </p>
       </div>
     );
@@ -39,4 +40,13 @@ Footer.propTypes = {
   }),
 };
 
-export default Footer;
+export const mapStateToProps = (state) => ({
+    buildDate: state.buildDate,
+    buildSha: state.buildSha
+})
+
+const mapDispatchToProps = {
+  getVersion: getVersion
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Footer));
