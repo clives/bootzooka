@@ -1,4 +1,4 @@
-# Bootzooka
+# Bootzooka with REDUX/SAGAS
 
 [![Build Status](https://travis-ci.org/softwaremill/bootzooka.svg?branch=master)](https://travis-ci.org/softwaremill/bootzooka)
 

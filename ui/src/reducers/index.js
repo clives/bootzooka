@@ -1,6 +1,8 @@
 
 export default function counter(state = {apiKey: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
   switch (action.type) {
+        case 'SET_CURRENTUSER':
+           return { ...state, apiKey: null, isLoggedIn: false, user: action.payload.user }
         case 'RESET_USERINFO':
           return { ...state, apiKey: null, isLoggedIn: false, user: null }
         case 'UPDATE_ISLOADINGAUTHINFO':
