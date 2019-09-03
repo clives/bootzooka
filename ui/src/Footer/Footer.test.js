@@ -1,25 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount} from 'enzyme';
 import Footer from './Footer';
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux'
+import {getVersion} from '../Actions'
 
-const build = 'abc-123';
-const date = '2018-07-16 15:55';
-
-const getVersion = jest.fn();
-getVersion.mockReturnValue(Promise.resolve({
-  data: {
-    build,
-    date
-  }
-}));
-
-const versionService = {
-  getVersion
-};
+const initialState = {};
+const mockStore = configureStore();
 
 describe('structure', () => {
-  it('should fetch version info', () => {
-    const wrapper = shallow(<Footer versionService={versionService} />);
-    expect(getVersion.mock.calls.length).toBe(1);
+  it('should send the correct action', () => {
+    const store = mockStore(initialState)
+    const wrapper = shallow(<Footer store={store} />).dive();
+    const actions = store.getActions()
+    const expectedPayload = { type: 'GET_VERSION' }
+    expect(actions).toEqual([getVersion()])
   });
 });
