@@ -3,25 +3,22 @@ import { put, takeLatest, all, take, call, race, fork, cancel } from 'redux-saga
 import UserService from '../UserService/UserService';
 import VersionService from '../VersionService/VersionService';
 
-export default function* rootSaga() {
 
-  let userService = new UserService();
-  let versionService = new VersionService();
-
-
-
-function* getVersion() {
-    while (true) {
+  export function* getVersion() {
       const payload = yield take('GET_VERSION');
       try {
-        const version = yield call(versionService.getVersion.bind(versionService));
+        const version = yield call(VersionService.getVersion.bind(VersionService));
         const { buildDate, buildSha } = version.data;
         yield put({ type: "SET_VERSION", payload: { 'buildDate': buildDate,'buildSha':buildSha } });
       }catch(error) {
-        console.log("error");
+        console.log(error);
       }
-    }
   }
+
+
+export default function* rootSaga() {
+
+  let userService = new UserService();
 
   function* getCurrentUser() {
     while (true) {

@@ -16,7 +16,6 @@ import { Provider } from 'react-redux'
 
 const userService = new UserService();
 const passwordService = new PasswordService();
-const versionService = new VersionService();
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -30,7 +29,6 @@ ReactDOM.render(
     <App
       passwordService={passwordService}
       userService={userService}
-      versionService={versionService}
     />
     </BrowserRouter>
   </Provider>,

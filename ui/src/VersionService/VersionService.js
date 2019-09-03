@@ -8,4 +8,4 @@ class VersionService {
   }
 }
 
-export default VersionService;
+export default new VersionService;
