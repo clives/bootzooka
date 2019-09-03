@@ -15,22 +15,16 @@ import VersionService from '../VersionService/VersionService';
       }
   }
 
-
-export default function* rootSaga() {
-
-  let userService = new UserService();
-
-  function* getCurrentUser() {
-    while (true) {
+  export function* getCurrentUser() {
       const payload = yield take('GET_CURRENTUSER');
       try {
-        const user = yield call(userService.getCurrentUser.bind(userService), payload.apiKey);
+        const user = yield call(UserService.getCurrentUser.bind(UserService), payload.apiKey);
         yield put({ type: "SET_CURRENTUSER", payload: { 'user': user.data} });
       }catch(error) {
         console.log("error");
       }
-    }
   }
 
+export default function* rootSaga() {
   yield all([getCurrentUser(), getVersion()]);
 }

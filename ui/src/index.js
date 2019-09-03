@@ -14,7 +14,6 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 
-const userService = new UserService();
 const passwordService = new PasswordService();
 
 const sagaMiddleware = createSagaMiddleware()
@@ -28,7 +27,6 @@ ReactDOM.render(
   <BrowserRouter>
     <App
       passwordService={passwordService}
-      userService={userService}
     />
     </BrowserRouter>
   </Provider>,

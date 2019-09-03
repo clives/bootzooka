@@ -20,8 +20,6 @@ import PasswordDetails from './PasswordDetails/PasswordDetails';
 import Footer from './Footer/Footer';
 import PasswordReset from './PasswordReset/PasswordReset';
 import PasswordService from './PasswordService/PasswordService';
-import UserService from './UserService/UserService';
-import VersionService from './VersionService/VersionService';
 import {updateIsLoadingAuthInfo, resetUserLoginInfo, setApiKey,getCurrentUser} from './Actions';
 
 class App extends Component {
@@ -124,9 +122,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  passwordService: PropTypes.instanceOf(PasswordService).isRequired,
-  userService: PropTypes.instanceOf(UserService).isRequired,
-  versionService: PropTypes.instanceOf(VersionService).isRequired,
+  passwordService: PropTypes.instanceOf(PasswordService).isRequired
 };
 
 export const mapStateToProps = (state) => ({
