@@ -1,23 +1,33 @@
+import * as ActionTypes from '../ActionTypes/ActionTypes';
+
 export const updateIsLoadingAuthInfo = (isLoadingAuthInfo) => ({
-    type: 'UPDATE_ISLOADINGAUTHINFO',
+    type: ActionTypes.UPDATE_ISLOADINGAUTHINFO,
     payload: isLoadingAuthInfo
 });
 
 export const setApiKey = (apikey, user) => ({
-    type: 'SET_APIKEY',
+    type: ActionTypes.SET_APIKEY,
     payload: { 'user' :user, 'apikey': apikey}
 });
 
 export const resetUserLoginInfo = () => ({
-    type: 'RESET_USERINFO'
+    type: ActionTypes.RESET_USERINFO
 });
 
 export const getCurrentUser = (apikey) => ({
-    type: 'GET_CURRENTUSER',
+    type: ActionTypes.GET_CURRENTUSER,
     payload: { 'apikey': apikey}
 });
 
 export const getVersion = () => ({
-    type: 'GET_VERSION'
+    type: ActionTypes.GET_VERSION
 });
 
+export const registerUser = (login, email, password) => ({
+    type: ActionTypes.REGISTER_USER,
+    payload: { 'login': login, 'email': email, 'password': password}
+});
+
+export const clearNotifications = () => ({
+    type: ActionTypes.CLEAR_NOTIFICATIONS
+});
