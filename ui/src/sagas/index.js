@@ -3,13 +3,14 @@ import { put, takeLatest, all, take, call, race, fork, cancel } from 'redux-saga
 import UserService from '../UserService/UserService';
 import VersionService from '../VersionService/VersionService';
 import * as ActionTypes from '../ActionTypes/ActionTypes';
+import {notifySuccess, notifyError} from '../Actions';
 
   export function* getVersion() {
       const payload = yield take(ActionTypes.GET_VERSION);
       try {
         const version = yield call(VersionService.getVersion.bind(VersionService));
         const { buildDate, buildSha } = version.data;
-        yield put({ type: "SET_VERSION", payload: { 'buildDate': buildDate,'buildSha':buildSha } });
+        yield put({ type: ActionTypes.SET_VERSION, payload: { 'buildDate': buildDate,'buildSha':buildSha } });
       }catch(error) {
         console.log(error);
       }
@@ -19,9 +20,9 @@ import * as ActionTypes from '../ActionTypes/ActionTypes';
       const payload = yield take(ActionTypes.GET_CURRENTUSER);
       try {
         const user = yield call(UserService.getCurrentUser.bind(UserService), payload.apiKey);
-        yield put({ type: "SET_CURRENTUSER", payload: { 'user': user.data} });
+        yield put({ type: ActionTypes.SET_CURRENTUSER, payload: { 'user': user.data} });
       }catch(error) {
-        console.log("error");
+        yield put({ type: ActionTypes.NOTIFY_ERROR, payload: { 'error': error} });
       }
   }
 

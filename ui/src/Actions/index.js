@@ -31,3 +31,11 @@ export const registerUser = (login, email, password) => ({
 export const clearNotifications = () => ({
     type: ActionTypes.CLEAR_NOTIFICATIONS
 });
+
+export const notifySuccess = () => ({
+           type: ActionTypes.NOTIFY_SUCCESS
+});
+
+export const notifyError = () => ({
+           type: ActionTypes.NOTIFY_ERROR
+});
