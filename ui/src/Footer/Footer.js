@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {getVersion} from '../Actions';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 class Footer extends Component {
@@ -34,11 +33,6 @@ class Footer extends Component {
   }
 }
 
-Footer.propTypes = {
-  versionService: PropTypes.shape({
-    getVersion: PropTypes.func.isRequired,
-  }),
-};
 
 export const mapStateToProps = (state) => ({
     buildDate: state.buildDate,
