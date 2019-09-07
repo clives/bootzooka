@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
@@ -20,7 +21,7 @@ import PasswordDetails from './PasswordDetails/PasswordDetails';
 import Footer from './Footer/Footer';
 import PasswordReset from './PasswordReset/PasswordReset';
 import PasswordService from './PasswordService/PasswordService';
-import {updateIsLoadingAuthInfo, resetUserLoginInfo, setApiKey,getCurrentUser} from './Actions';
+import {updateIsLoadingAuthInfo, userLogout, resetUserLoginInfo, setApiKey,getCurrentUser, clearNotifications} from './Actions';
 
 class App extends Component {
   constructor(props) {
@@ -63,8 +64,7 @@ class App extends Component {
   }
 
   logout() {
-    window.localStorage.removeItem('apiKey');
-    this.props.resetUserLoginInfo();
+    this.props.userLogout();
   }
 
   notifySuccess(msg) {
@@ -75,8 +75,23 @@ class App extends Component {
     toast.error(msg);
   }
 
+  componentDidUpdate(){
+    this.props.clearNotifications();
+  }
+
   render() {
     const { passwordService, userService, versionService, apiKey, isLoadingAuthInfo, isLoggedIn, user } = this.props;
+
+    if( this.props.notifyError ){
+      toast.error(this.props.notifyError);
+      //this.props.clearNotifications();
+    }
+    if( this.props.notifySuccess ){
+      toast.success(this.props.notifyError);
+      //this.props.clearNotifications();
+    }
+
+
     //const { apiKey, isLoadingAuthInfo, isLoggedIn, user } = this.state;
     return (
       isLoadingAuthInfo ? <Spinner />
@@ -89,27 +104,21 @@ class App extends Component {
               <ProtectedRoute isLoggedIn={isLoggedIn} path="/profile" render={() => withForkMe(
                 <div>
                   <ProfileDetails apiKey={apiKey} user={user} userService={userService}
-                    onUserUpdated={this.updateUserInfo.bind(this)}
-                    notifyError={this.notifyError} notifySuccess={this.notifySuccess} />
-                  <PasswordDetails apiKey={apiKey} userService={userService}
-                    notifyError={this.notifyError} notifySuccess={this.notifySuccess} />
+                    onUserUpdated={this.updateUserInfo.bind(this)} />
+                  <PasswordDetails apiKey={apiKey} userService={userService} />
                 </div>
               )} />
               <Route path="/login" render={() => withForkMe(
-                <Login userService={userService} onLoggedIn={this.onLoggedIn.bind(this)}
-                  notifyError={this.notifyError} isLoggedIn={isLoggedIn} />
+                <Login userService={userService} onLoggedIn={this.onLoggedIn.bind(this)}  isLoggedIn={isLoggedIn} />
                 )} />
               <Route path="/register" render={() => withForkMe(
-                <Register userService={userService}
-                  notifyError={this.notifyError} notifySuccess={this.notifySuccess} />
+                <Register userService={userService}/>
                 )} />
               <Route path="/recover-lost-password" render={() => withForkMe(
-                <RecoverLostPassword passwordService={passwordService}
-                  notifyError={this.notifyError} notifySuccess={this.notifySuccess} />
+                <RecoverLostPassword passwordService={passwordService}/>
                 )} />
               <Route path="/password-reset" render={({ location }) => withForkMe(
-                <PasswordReset passwordService={passwordService} queryParamsString={location.search}
-                  notifyError={this.notifyError} notifySuccess={this.notifySuccess} />
+                <PasswordReset passwordService={passwordService} queryParamsString={location.search}/>
               )} />
               <Route render={() => withForkMe(<NotFound />)} />
             </Switch>
@@ -121,22 +130,22 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  passwordService: PropTypes.instanceOf(PasswordService).isRequired
-};
-
 export const mapStateToProps = (state) => ({
     apiKey: state.apiKey,
     isLoadingAuthInfo: state.isLoadingAuthInfo,
     isLoggedIn: state.isLoggedIn,
-    user: state.user
+    user: state.user,
+    notifyError: state.notify_error,
+    notifySuccess: state.notify_success
 })
 
 const mapDispatchToProps = {
   updateIsLoadingAuthInfo: updateIsLoadingAuthInfo,
   resetUserLoginInfo: resetUserLoginInfo,
   setApiKey: setApiKey,
-  getCurrentUser: getCurrentUser
+  getCurrentUser: getCurrentUser,
+  clearNotifications: clearNotifications,
+  userLogout: userLogout
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default hot(withRouter(connect(mapStateToProps, mapDispatchToProps)(App)));
