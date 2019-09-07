@@ -1,10 +1,15 @@
-# Bootzooka with REDUX/SAGAS
+# Bootzooka with REDUX/SAGAS and HOTRELOADING
 
 [![Build Status](https://travis-ci.org/softwaremill/bootzooka.svg?branch=master)](https://travis-ci.org/softwaremill/bootzooka)
 
 Bootzooka is simple project to quickly start developing a Scala-based microservice or web application
 
 [See the docs](http://softwaremill.github.io/bootzooka/) for more information.
+
+# In progress
+
+redux/sagas/hotreloading
+
 
 ## Quick start
 
