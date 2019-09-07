@@ -1,9 +1,9 @@
 import {runSaga, stdChannel} from 'redux-saga';
 import VersionService from '../VersionService/VersionService';
 import UserService from '../UserService/UserService';
-import {getVersion, getCurrentUser} from '.'
+import {getVersion, getCurrentUser} from './Sagas'
 import {getVersion as getVersionAction, getCurrentUser as getCurrentUserAction} from '../Actions'
-
+import { expectSaga } from 'redux-saga-test-plan';
 
 VersionService.getVersion = jest.fn();
 UserService.getCurrentUser = jest.fn();
@@ -12,7 +12,7 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-it('getVersion should return dump version', async () => {
+it('getCurrentUser should had be called',async () => {
   UserService.getCurrentUser.mockImplementation(() => "");
   const dispatched = []
   const channel = stdChannel()
@@ -21,9 +21,11 @@ it('getVersion should return dump version', async () => {
       getState: () => {},
       channel
     };
-    const task = runSaga(options, getCurrentUser);
-  channel.put(getCurrentUserAction());
-  await task.toPromise();
+
+  const promise = expectSaga(getCurrentUser)
+    .dispatch(getCurrentUserAction()).run()
+
+  await promise
   expect(UserService.getCurrentUser).toHaveBeenCalled();
 });
 
