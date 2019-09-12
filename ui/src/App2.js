@@ -1,9 +1,9 @@
-import { hot } from 'react-hot-loader/root'
+//import { hot } from 'react-hot-loader/root'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 //import reducer from './Reducers'
-
+import {connect} from "react-redux"
 /*
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -45,7 +45,7 @@ class Counter extends React.Component {
     return (
 
    <div>
-   <button className='inc' onClick={(e) => this.increment(e)}>Increment!dd</button>
+   <button className='inc' onClick={(e) => {this.increment(e); this.props.tickIncrement();}}>-NICE--jjIncrement!dd</button>
     <button className='dec' onClick={(e) => this.decrement(e)}>Decrement!</button>
     <button className='reset' onClick={(e) => this.reset(e)}>Reset</button>
     <h1>Current Count: {this.state.count}</h1>
@@ -54,4 +54,16 @@ class Counter extends React.Component {
   }
 };
 
-export default process.env.NODE_ENV === "development" ? hot(Counter) : Counter
+const mapStateToProps = state => ({
+  tick: state.tick,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  tickIncrement: () => dispatch({type: "tick"}),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter)
+
+//export default process.env.NODE_ENV === "development" ? hot(Counter) : Counter
+//export default Counter
