@@ -1,6 +1,6 @@
 import * as ActionTypes from '../ActionTypes/ActionTypes';
 
-export default function counter(state = {apiKey: null, notify_error: null, notify_info: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
+export default function counter(state = {apiKey: null,isLoggedIn: false, notify_error: null, notify_info: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
   switch (action.type) {
         case ActionTypes.SET_CURRENTUSER:
            return { ...state, apiKey: null, isLoggedIn: false, user: action.payload.user }
@@ -15,9 +15,15 @@ export default function counter(state = {apiKey: null, notify_error: null, notif
         case ActionTypes.CLEAR_NOTIFICATIONS:
           return { ...state, notify_error:null, notify_info: null}
         case ActionTypes.NOTIFY_ERROR:
+          console.info("NOTIFY_ERROR");
           return { ...state, notify_error: action.payload.error}
         case ActionTypes.NOTIFY_SUCCESS:
+        console.info("NOTIFY_SUCCESS");
           return { ...state, notify_success: action.payload.success}
+        case ActionTypes.USER_LOGGEDIN:
+          return { ...state, isLoggedIn: true, apiKey: payload.apiKey}
+        case ActionTypes.USER_LOGGEDOUT:
+          return { ...state, isLoggedIn: false, apiKey: null, user: null}
     default:
       return state
   }

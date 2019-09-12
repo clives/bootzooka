@@ -19,11 +19,11 @@
     "redux-saga": "^1.0.2"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "test:ci": "CI=true react-scripts test --env=jsdom --maxWorkers 2",
-    "eject": "react-app-rewired eject"
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@redux-saga/testing-utils": "^1.0.5",
@@ -32,7 +32,8 @@
     "react-hot-loader": "^4.12.12",
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.3",
-    "redux-saga-test-plan": "^4.0.0-beta.2"
+    "redux-saga-test-plan": "^4.0.0-beta.2",
+    "babel-jest": "^24.8.0"
   },
   "proxy": "http://localhost:8080",
   "browserslist": {

@@ -39,3 +39,16 @@ export const notifySuccess = () => ({
 export const notifyError = () => ({
            type: ActionTypes.NOTIFY_ERROR
 });
+
+export const userLogin = (loginOrEmail, password) => ({
+           type: ActionTypes.USER_LOGIN,
+           payload: { 'loginOrEmail': loginOrEmail, 'password': password}
+});
+
+export const userLogout = () => ({
+           type: ActionTypes.USER_LOGOUT
+});
+
+export const userLoggedout = () => ({
+           type: ActionTypes.USER_LOGGEDOUT
+});
