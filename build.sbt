@@ -16,7 +16,7 @@ val circeVersion = "0.11.1"
 val tsecVersion = "0.1.0"
 val sttpVersion = "1.6.4"
 val prometheusVersion = "0.6.0"
-val tapirVersion = "0.9.3"
+val tapirVersion = "0.11.0"
 
 val dbDependencies = Seq(
   "org.tpolecat" %% "doobie-core" % doobieVersion,
@@ -63,7 +63,7 @@ val configDependencies = Seq(
 )
 
 val baseDependencies = Seq(
-  "io.monix" %% "monix" % "3.0.0-RC3",
+  "io.monix" %% "monix" % "3.0.0",
   "com.softwaremill.common" %% "tagging" % "2.2.1",
   "com.softwaremill.quicklens" %% "quicklens" % "1.4.12"
 )
