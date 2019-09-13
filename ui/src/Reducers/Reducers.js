@@ -1,6 +1,7 @@
 import * as ActionTypes from '../ActionTypes/ActionTypes';
+import history from '../history';
 
-export default function counter(state = {apiKey: null,isLoggedIn: false, notify_error: null, notify_info: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
+export default function counter(state = {apiKey: null,isRegistered:false, isLoggedIn: false, notify_error: null, notify_success: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
   switch (action.type) {
         case "tick":
           return {...state, tick: state.tick + 135}
@@ -15,17 +16,17 @@ export default function counter(state = {apiKey: null,isLoggedIn: false, notify_
         case ActionTypes.SET_APIKEY:
           return { ...state, apiKey: action.payload.apiKey, user: action.payload.user, isLoggedIn: true, isLoadingAuthInfo: false}
         case ActionTypes.CLEAR_NOTIFICATIONS:
-          return { ...state, notify_error:null, notify_info: null}
+          return { ...state, notify_error:null, notify_success: null}
         case ActionTypes.NOTIFY_ERROR:
-          console.info("NOTIFY_ERROR");
           return { ...state, notify_error: action.payload.error}
         case ActionTypes.NOTIFY_SUCCESS:
-        console.info("NOTIFY_SUCCESS--");
           return { ...state, notify_success: action.payload.success}
         case ActionTypes.USER_LOGGEDIN:
           return { ...state, isLoggedIn: true, apiKey: action.payload.apiKey}
         case ActionTypes.USER_LOGGEDOUT:
           return { ...state, isLoggedIn: false, apiKey: null, user: null}
+        case ActionTypes.REDIRECT_MAINPAGE:
+          return {...state, isRegistered: true} 
     default:
       return state
   }

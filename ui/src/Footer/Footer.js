@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {getVersion} from '../Actions';
+import {getVersion} from '../Actions/Actions';
 import { connect } from 'react-redux'
 
 class Footer extends Component {

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { validateEmail, validateLogin, validatePassword } from '../validation/validation';
+import { connect } from 'react-redux'
+import { registerUser } from '../Actions/Actions';
 
 class Register extends Component {
   constructor(props) {
@@ -29,14 +31,13 @@ class Register extends Component {
     event.preventDefault();
     try {
       const { login, email, password } = this.state.values;
-      const { data: response } = await this.props.userService.registerUser({ login, email, password });
-      console.log(response.apiKey);
+      this.props.registerUser(login, email, password);
       // TODO save the apiKey in localStorage; read it in the UserService/axios request transformer?
       // remvoe it from localStorage on logout
-      this.setState({ isRegistered: true });
-      this.props.notifySuccess('Successfully registered.');
+      //this.setState({ isRegistered: true });
+     // this.props.notifySuccess('Successfully registered.');
     } catch (error) {
-      this.props.notifyError('Could not register new user!');
+     //  this.props.notifyError('Could not resgister new user!');
       console.error(error);
     }
   }
@@ -76,9 +77,9 @@ class Register extends Component {
 
   render () {
     return (
-      this.state.isRegistered ? <Redirect to="/login" />
+      this.props.isRegistered ? <Redirect to="/login" />
       : <div className="Register">
-          <h4>Please sign up</h4>
+          <h4>Please Register</h4>
           <form className="CommonForm" onSubmit={this.handleSubmit}>
             <input type="text" name="login" placeholder="Login"
               onChange={({ target }) => this.handleValueChange('login', target.value)}
@@ -104,12 +105,13 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
-  userService: PropTypes.shape({
-    registerUser: PropTypes.func.isRequired
-  }).isRequired,
-  notifyError: PropTypes.func.isRequired,
-  notifySuccess: PropTypes.func.isRequired,
+export const mapStateToProps = (state) => ({
+    apiKey: state.apiKey,
+    isRegistered: state.isRegistered
+})
+
+const mapDispatchToProps = {
+  registerUser: registerUser
 };
 
-export default Register;
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

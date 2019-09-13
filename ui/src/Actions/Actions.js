@@ -52,3 +52,7 @@ export const userLogout = () => ({
 export const userLoggedout = () => ({
            type: ActionTypes.USER_LOGGEDOUT
 });
+
+export const redirectMainPage = () => ({
+    type: ActionTypes.REDIRECT_MAINPAGE
+})

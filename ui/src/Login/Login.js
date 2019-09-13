@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import {userLogin} from '../Actions/Actions';
+import { connect } from 'react-redux'
 
 class Login extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Login extends Component {
         loginOrEmail: '',
         password: '',
       },
-      touchedControls: {
+      touchedControls:  {
         loginOrEmail: false,
         password: false,
       },
@@ -19,14 +20,8 @@ class Login extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    try {
       const { loginOrEmail, password } = this.state.values;
-      const { data } = await this.props.userService.login({ loginOrEmail, password });
-      await this.props.onLoggedIn(data.apiKey);
-    } catch (error) {
-      this.props.notifyError('Incorrect login/email or password!');
-      console.error(error);
-    }
+      const { data } = await this.props.userService.login(loginOrEmail, password);
   }
 
   handleValueChange(key, value) {
@@ -64,12 +59,12 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  notifyError: PropTypes.func.isRequired,
-  userService: PropTypes.shape({
-    login: PropTypes.func.isRequired
-  }).isRequired,
+
+export const mapStateToProps = (state) => ({
+})
+
+const mapDispatchToProps = {
+  userLogin: userLogin
 };
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

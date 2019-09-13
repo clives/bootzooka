@@ -21,7 +21,7 @@ import PasswordDetails from './PasswordDetails/PasswordDetails';
 import Footer from './Footer/Footer';
 import PasswordReset from './PasswordReset/PasswordReset';
 import PasswordService from './PasswordService/PasswordService';
-import {updateIsLoadingAuthInfo, userLogout, resetUserLoginInfo, setApiKey,getCurrentUser, clearNotifications} from './Actions';
+import {updateIsLoadingAuthInfo, userLogout, resetUserLoginInfo, setApiKey,getCurrentUser, clearNotifications} from './Actions/Actions';
 
 class App extends Component {
   constructor(props) {
@@ -84,15 +84,11 @@ class App extends Component {
 
     if( this.props.notifyError ){
       toast.error(this.props.notifyError);
-      //this.props.clearNotifications();
     }
     if( this.props.notifySuccess ){
-      toast.success(this.props.notifyError);
-      //this.props.clearNotifications();
+      toast.success(this.props.notifySuccess);
     }
 
-
-    //const { apiKey, isLoadingAuthInfo, isLoggedIn, user } = this.state;
     return (
       isLoadingAuthInfo ? <Spinner />
       : <div className="App">
