@@ -1,7 +1,6 @@
 import * as ActionTypes from '../ActionTypes/ActionTypes';
-import history from '../history';
 
-export default function counter(state = {apiKey: null,isRegistered:false, isLoggedIn: false, notify_error: null, notify_success: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
+export default function counter(state = {apiKey: null,isRegistered:false, notify_error: null, notify_success: null, isLoggedIn: false, user: null, isLoadingAuthInfo: true}, action) {
   switch (action.type) {
         case "tick":
           return {...state, tick: state.tick + 135}

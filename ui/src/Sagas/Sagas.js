@@ -63,7 +63,7 @@ export function* getCurrentUser() {
         const {payload} = yield take(ActionTypes.USER_LOGIN);
         try {
           const arg = { loginOrEmail: payload.loginOrEmail, password: payload.password }
-          const {data} = yield call(UserService.registerUser.bind(UserService), arg)
+          const {data} = yield call(UserService.login.bind(UserService), arg)
           yield put({ type: ActionTypes.USER_LOGGEDIN, payload: { 'apiKey': data.apiKey} });
         }catch(error) {
         let errorMsg;

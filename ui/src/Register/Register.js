@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { validateEmail, validateLogin, validatePassword } from '../validation/validation';
 import { connect } from 'react-redux'
 import { registerUser } from '../Actions/Actions';

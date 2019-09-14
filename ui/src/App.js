@@ -1,5 +1,4 @@
 import { hot } from 'react-hot-loader/root'
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -20,7 +19,6 @@ import ProfileDetails from './ProfileDetails/ProfileDetails';
 import PasswordDetails from './PasswordDetails/PasswordDetails';
 import Footer from './Footer/Footer';
 import PasswordReset from './PasswordReset/PasswordReset';
-import PasswordService from './PasswordService/PasswordService';
 import {updateIsLoadingAuthInfo, userLogout, resetUserLoginInfo, setApiKey,getCurrentUser, clearNotifications} from './Actions/Actions';
 
 class App extends Component {

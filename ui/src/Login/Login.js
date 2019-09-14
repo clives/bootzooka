@@ -21,7 +21,7 @@ class Login extends Component {
   handleSubmit = async event => {
     event.preventDefault();
       const { loginOrEmail, password } = this.state.values;
-      const { data } = await this.props.userService.login(loginOrEmail, password);
+      this.props.userLogin(loginOrEmail, password);
   }
 
   handleValueChange(key, value) {
