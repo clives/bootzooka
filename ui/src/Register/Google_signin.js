@@ -35,7 +35,7 @@ class SignIn extends Component {
     componentDidMount() {
       window.gapi.load('auth2', () => {
         this.auth2 = window.gapi.auth2.init({
-          client_id: '916742357497-o99psqoc143vsqi93udn95e4c0r6o26a.apps.googleusercontent.com',
+          client_id: 'XXX.googleusercontent.com',
         })
 
         this.auth2.then(() => {
