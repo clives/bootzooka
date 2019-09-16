@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { validateEmail, validateLogin, validatePassword } from '../validation/validation';
 import { connect } from 'react-redux'
 import { registerUser } from '../Actions/Actions';
+import GoogleSignIn from './Google_signin'
 
 class Register extends Component {
   constructor(props) {
@@ -99,6 +100,8 @@ class Register extends Component {
             { this.state.touchedControls.repeatedPassword && !this.passwordEntriesMatch() ? <p className="validation-message">passwords don't match!</p> : null }
             <input type="submit" value="Register" className="button-primary" disabled={!this.isValid()} />
           </form>
+
+          <GoogleSignIn/>
         </div>
     );
   }
