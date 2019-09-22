@@ -6,6 +6,7 @@ const NavBar = ({ isLoggedIn, logout, user }) =>
   <div className="NavBar">
     <NavLink className="NavBar__link" activeClassName="NavBar__link--active" to="/" exact>Bootzooka</NavLink>
     <NavLink className="NavBar__link" activeClassName="NavBar__link--active" to="/main">Home</NavLink>
+    <NavLink className="NavBar__link" activeClassName="NavBar__link--active" to="/Highstock">HighstockExperiment</NavLink>
     { isLoggedIn && user ? <NavLink className="NavBar__link" activeClassName="NavBar__link--active" to="/profile">Logged in as { user.login }</NavLink>
       : <NavLink className="NavBar__link" activeClassName="NavBar__link--active" to="/register">Register</NavLink> }
     { isLoggedIn ? <a className="NavBar__link" onClick={logout}>Logout</a>

@@ -14,12 +14,14 @@ import Register from './Register/Register';
 import Spinner from './Spinner/Spinner';
 import Welcome from './Welcome/Welcome';
 import withForkMe from './ForkMe/ForkMe';
-import SecretMain from './SecretMain/SecretMain';
+import Highstock from './Highstock/Highstock';
 import ProfileDetails from './ProfileDetails/ProfileDetails';
 import PasswordDetails from './PasswordDetails/PasswordDetails';
+import SecretMain from './SecretMain/SecretMain';
 import Footer from './Footer/Footer';
 import PasswordReset from './PasswordReset/PasswordReset';
 import {updateIsLoadingAuthInfo, userLogout, resetUserLoginInfo, setApiKey,getCurrentUser, clearNotifications} from './Actions/Actions';
+import PrivateRoute from 'react-private-route'
 
 class App extends Component {
   constructor(props) {
@@ -95,6 +97,12 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={() => withForkMe(<Welcome />)} />
               <ProtectedRoute isLoggedIn={isLoggedIn} path="/main" component={SecretMain} />
+              <ProtectedRoute isLoggedIn={isLoggedIn} path="/Highstockprivate" component={Highstock} />
+
+              <Route path="/Highstock" render={() => withForkMe(
+                <Highstock/>
+                )} />
+
               <ProtectedRoute isLoggedIn={isLoggedIn} path="/profile" render={() => withForkMe(
                 <div>
                   <ProfileDetails apiKey={apiKey} user={user} userService={userService}
