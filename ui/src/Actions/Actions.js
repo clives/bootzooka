@@ -7,7 +7,7 @@ export const updateIsLoadingAuthInfo = (isLoadingAuthInfo) => ({
 
 export const setApiKey = (apikey, user) => ({
     type: ActionTypes.SET_APIKEY,
-    payload: { 'user' :user, 'apikey': apikey}
+    payload: { 'user': user, 'apikey': apikey }
 });
 
 export const resetUserLoginInfo = () => ({
@@ -16,7 +16,7 @@ export const resetUserLoginInfo = () => ({
 
 export const getCurrentUser = (apikey) => ({
     type: ActionTypes.GET_CURRENTUSER,
-    payload: { 'apikey': apikey}
+    payload: { 'apikey': apikey }
 });
 
 export const getVersion = () => ({
@@ -25,7 +25,7 @@ export const getVersion = () => ({
 
 export const registerUser = (login, email, password) => ({
     type: ActionTypes.REGISTER_USER,
-    payload: { 'login': login, 'email': email, 'password': password}
+    payload: { 'login': login, 'email': email, 'password': password }
 });
 
 export const clearNotifications = () => ({
@@ -33,26 +33,35 @@ export const clearNotifications = () => ({
 });
 
 export const notifySuccess = () => ({
-           type: ActionTypes.NOTIFY_SUCCESS
+    type: ActionTypes.NOTIFY_SUCCESS
 });
 
 export const notifyError = () => ({
-           type: ActionTypes.NOTIFY_ERROR
+    type: ActionTypes.NOTIFY_ERROR
 });
 
 export const userLogin = (loginOrEmail, password) => ({
-           type: ActionTypes.USER_LOGIN,
-           payload: { 'loginOrEmail': loginOrEmail, 'password': password}
+    type: ActionTypes.USER_LOGIN,
+    payload: { 'loginOrEmail': loginOrEmail, 'password': password }
 });
 
 export const userLogout = () => ({
-           type: ActionTypes.USER_LOGOUT
+    type: ActionTypes.USER_LOGOUT
 });
 
+export const userLoggedIn = (source) => ({
+    type: ActionTypes.USER_LOGGEDIN,
+    payload: { 'authApp': source }
+})
+
 export const userLoggedout = () => ({
-           type: ActionTypes.USER_LOGGEDOUT
+    type: ActionTypes.USER_LOGGEDOUT
 });
 
 export const redirectMainPage = () => ({
     type: ActionTypes.REDIRECT_MAINPAGE
+})
+
+export const userLoggedInWithGoogle = (googleId) => ({
+    type: ActionTypes.LOGGEDIN_WITH_GOOGLE
 })
