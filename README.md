@@ -48,6 +48,9 @@ Then, you can start the frontend:
 adding REDUX-SAGA 
 
 
+### Swagger docs
+
+http://localhost:8080/api/v1/docs/
 
 
 
